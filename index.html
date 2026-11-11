@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RYZAFILMS - Platform Film Digital</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo"><i class="fa-solid fa-gamepad"></i> RYZAFILMS</div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active"><i class="fa-solid fa-house"></i> Beranda</a></li>
+      <li><a href="#katalog"><i class="fa-solid fa-film"></i> Katalog Film</a></li>
+      <li><a href="#keunggulan"><i class="fa-solid fa-bolt"></i> Keunggulan</a></li>
+      <li><a href="about.html"><i class="fa-solid fa-address-card"></i> Tentang & Visi Misi</a></li>
+      
+      <!-- Tombol Menu Tambahan: Watchlist & Koleksi Saya -->
+      <li><a href="#" onclick="openWatchlistModal()"><i class="fa-solid fa-heart" style="color:var(--secondary)"></i> Daftar Saya (<span id="watchlistCount">0</span>)</a></li>
+      <li><a href="#" onclick="openLibraryModal()"><i class="fa-solid fa-box-archive"></i> Koleksi Saya</a></li>
+
+      <!-- Tombol Switcher Mode -->
+      <li>
+        <button id="themeToggle" class="theme-toggle-btn">
+            <i class="fa-solid fa-sun" id="themeIcon"></i>
+            <span id="themeText">Light Mode</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Hero Banner -->
+  <header class="hero">
+    <div class="hero-content">
+      <span class="badge"><i class="fa-solid fa-sparkles"></i> PLATFORM FILM DIGITAL MODERN</span>
+      <h1>NIKMATI RIBUAN FILM LAYAR LEBAR LANGSUNG DARI RUMAH</h1>
+      <p>Sewa atau beli film bioskop favoritmu dengan kualitas audio & visual hingga 4K UHD & Dolby Atmos.</p>
+      <div class="hero-btns">
+        <a href="#katalog" class="btn btn-primary"><i class="fa-solid fa-play"></i> Jelajahi Film</a>
+        <a href="about.html" class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i> Pelajari Selengkapnya</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Section: Catalog -->
+  <section class="container" id="katalog">
+    <h2 class="section-title"><i class="fa-solid fa-fire"></i> Film Yang Tersedia</h2>
+    <p class="section-subtitle">Pilih film favoritmu untuk disewa (durasi terbatas) atau dibeli secara permanen!</p>
+
+    <!-- KONTROL PENCARIAN & FILTER GENRE -->
+    <div class="filter-controls">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInput" placeholder="Cari judul film..." onkeyup="filterMovies()">
+      </div>
+      <div class="genre-buttons">
+        <button class="genre-btn active" onclick="setGenre('all', this)">Semua</button>
+        <button class="genre-btn" onclick="setGenre('Horror', this)">Horror</button>
+        <button class="genre-btn" onclick="setGenre('Comedy', this)">Komedi</button>
+        <button class="genre-btn" onclick="setGenre('Action', this)">Aksi</button>
+      </div>
+    </div>
+
+    <!-- PESAN JIKA FILM TIDAK DITEMUKAN -->
+    <div id="noResults" class="no-results" style="display: none;">
+      <i class="fa-solid fa-film-slash"></i>
+      <p>Film yang kamu cari tidak ditemukan.</p>
+    </div>
+
+    <div class="movie-grid" id="movieGrid">
+
+      <!-- Film 1 -->
+      <div class="movie-card" data-title="danur the last chapter" data-genre="Horror">
+        <div class="movie-poster">
+          <img src="Image/Danur.png" alt="Danur: The Last Chapter">
+          <span class="tag-resolution">4K UHD</span>
+          <button class="watchlist-btn" onclick="toggleWatchlist('Danur: The Last Chapter', 'Image/Danur.png', this)" title="Simpan ke Daftar Saya">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+        </div>
+        <div class="movie-details">
+          <h3>Danur: The Last Chapter</h3>
+          <div class="rating-container" onclick="openReviewModal('Danur: The Last Chapter')">
+            <div class="stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+            <span class="rating-value">4.5</span>
+            <span class="review-count">(128 ulasan)</span>
+          </div>
+          <div class="specs">
+            <span><i class="fa-solid fa-volume-high"></i> Audio ID</span>
+            <span><i class="fa-solid fa-closed-captioning"></i> Sub ID / EN</span>
+          </div>
+          <div class="price-container">
+            <div class="price-box">
+              <span class="label">Sewa:</span>
+              <span class="value">Rp 25.000</span>
+            </div>
+            <div class="price-box highlight">
+              <span class="label">Beli Permanen:</span>
+              <span class="value">Rp 99.000</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-card btn-trailer" onclick="openTrailerModal('https://www.youtube.com/embed/5PS_w8gVvvQ', 'Danur: The Last Chapter')"><i class="fa-solid fa-film"></i> Trailer</button>
+            <button class="btn-card btn-rent" onclick="openCheckout('Danur: The Last Chapter', 'Sewa', '25.000')"><i class="fa-solid fa-clock"></i> Sewa</button>
+            <button class="btn-card btn-buy" onclick="openCheckout('Danur: The Last Chapter', 'Beli Permanen', '99.000')"><i class="fa-solid fa-cart-shopping"></i> Beli</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Film 2 -->
+      <div class="movie-card" data-title="seporsi mie ayam" data-genre="Comedy">
+        <div class="movie-poster">
+          <img src="Image/Seporsi mie ayam.jpg" alt="Seporsi Mie Ayam">
+          <span class="tag-resolution">4K UHD</span>
+          <button class="watchlist-btn" onclick="toggleWatchlist('Seporsi Mie Ayam', 'Image/Seporsi mie ayam.jpg', this)" title="Simpan ke Daftar Saya">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+        </div>
+        <div class="movie-details">
+          <h3>Seporsi Mie Ayam</h3>
+          <div class="rating-container" onclick="openReviewModal('Seporsi Mie Ayam')">
+            <div class="stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
+            </div>
+            <span class="rating-value">4.0</span>
+            <span class="review-count">(94 ulasan)</span>
+          </div>
+          <div class="specs">
+            <span><i class="fa-solid fa-volume-high"></i> Audio ID</span>
+            <span><i class="fa-solid fa-closed-captioning"></i> Sub ID / EN</span>
+          </div>
+          <div class="price-container">
+            <div class="price-box">
+              <span class="label">Sewa:</span>
+              <span class="value">Rp 25.000</span>
+            </div>
+            <div class="price-box highlight">
+              <span class="label">Beli Permanen:</span>
+              <span class="value">Rp 99.000</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-card btn-trailer" onclick="openTrailerModal('https://www.youtube.com/embed/5PS_w8gVvvQ', 'Seporsi Mie Ayam')"><i class="fa-solid fa-film"></i> Trailer</button>
+            <button class="btn-card btn-rent" onclick="openCheckout('Seporsi Mie Ayam', 'Sewa', '25.000')"><i class="fa-solid fa-clock"></i> Sewa</button>
+            <button class="btn-card btn-buy" onclick="openCheckout('Seporsi Mie Ayam', 'Beli Permanen', '99.000')"><i class="fa-solid fa-cart-shopping"></i> Beli</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Film 3 -->
+      <div class="movie-card" data-title="spider-man brand new day spiderman" data-genre="Action">
+        <div class="movie-poster">
+          <img src="Image/Spiderman.png" alt="Spider-Man: Brand New Day">
+          <span class="tag-resolution">4K UHD</span>
+          <button class="watchlist-btn" onclick="toggleWatchlist('Spider-Man: Brand New Day', 'Image/Spiderman.png', this)" title="Simpan ke Daftar Saya">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+        </div>
+        <div class="movie-details">
+          <h3>Spider-Man: Brand New Day</h3>
+          <div class="rating-container" onclick="openReviewModal('Spider-Man: Brand New Day')">
+            <div class="stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <span class="rating-value">4.9</span>
+            <span class="review-count">(310 ulasan)</span>
+          </div>
+          <div class="specs">
+            <span><i class="fa-solid fa-volume-high"></i> Audio EN</span>
+            <span><i class="fa-solid fa-closed-captioning"></i> Sub ID / EN</span>
+          </div>
+          <div class="price-container">
+            <div class="price-box">
+              <span class="label">Sewa:</span>
+              <span class="value">Rp 35.000</span>
+            </div>
+            <div class="price-box highlight">
+              <span class="label">Beli Permanen:</span>
+              <span class="value">Rp 125.000</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-card btn-trailer" onclick="openTrailerModal('https://www.youtube.com/embed/JfVOs4VSpmA', 'Spider-Man: Brand New Day')"><i class="fa-solid fa-film"></i> Trailer</button>
+            <button class="btn-card btn-rent" onclick="openCheckout('Spider-Man: Brand New Day', 'Sewa', '35.000')"><i class="fa-solid fa-clock"></i> Sewa</button>
+            <button class="btn-card btn-buy" onclick="openCheckout('Spider-Man: Brand New Day', 'Beli Permanen', '125.000')"><i class="fa-solid fa-cart-shopping"></i> Beli</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Film 4 -->
+      <div class="movie-card" data-title="bapak paling jujur" data-genre="Comedy">
+        <div class="movie-poster">
+          <img src="Image/Bapak Jujur.png" alt="Bapak Paling Jujur">
+          <span class="tag-resolution">4K UHD</span>
+          <button class="watchlist-btn" onclick="toggleWatchlist('Bapak Paling Jujur', 'Image/Bapak Jujur.png', this)" title="Simpan ke Daftar Saya">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+        </div>
+        <div class="movie-details">
+          <h3>Bapak Paling Jujur</h3>
+          <div class="rating-container" onclick="openReviewModal('Bapak Paling Jujur')">
+            <div class="stars">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+            <span class="rating-value">4.6</span>
+            <span class="review-count">(82 ulasan)</span>
+          </div>
+          <div class="specs">
+            <span><i class="fa-solid fa-volume-high"></i> Audio ID</span>
+            <span><i class="fa-solid fa-closed-captioning"></i> Sub ID / EN</span>
+          </div>
+          <div class="price-container">
+            <div class="price-box">
+              <span class="label">Sewa:</span>
+              <span class="value">Rp 25.000</span>
+            </div>
+            <div class="price-box highlight">
+              <span class="label">Beli Permanen:</span>
+              <span class="value">Rp 99.000</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-card btn-trailer" onclick="openTrailerModal('https://www.youtube.com/embed/5PS_w8gVvvQ', 'Bapak Paling Jujur')"><i class="fa-solid fa-film"></i> Trailer</button>
+            <button class="btn-card btn-rent" onclick="openCheckout('Bapak Paling Jujur', 'Sewa', '25.000')"><i class="fa-solid fa-clock"></i> Sewa</button>
+            <button class="btn-card btn-buy" onclick="openCheckout('Bapak Paling Jujur', 'Beli Permanen', '99.000')"><i class="fa-solid fa-cart-shopping"></i> Beli</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section: Keunggulan Kami -->
+  <section class="container" id="keunggulan">
+    <h2 class="section-title"><i class="fa-solid fa-star"></i> Keunggulan RYZAFILMS</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <i class="fa-solid fa-tv"></i>
+        <h3>Audio & Visual Terbaik</h3>
+        <p>Mendukung resolusi hingga 4K UHD dan sistem tata suara imersif Dolby Atmos.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fa-solid fa-mobile-screen"></i>
+        <h3>Multi-Perangkat</h3>
+        <p>Akses film kesukaanmu dengan lancar via Smartphone, Tablet, Laptop, hingga Smart TV.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fa-solid fa-ban"></i>
+        <h3>Tanpa Iklan</h3>
+        <p>Nikmati alur cerita film dari awal hingga akhir tanpa ada gangguan iklan di pertengahan.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fa-solid fa-wallet"></i>
+        <h3>Pembayaran Mudah</h3>
+        <p>Menerima Transfer Bank, QRIS, E-Wallet (GoPay, OVO, ShopeePay), dan Kartu Kredit.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Checkout Transaksi -->
+  <div id="checkoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeCheckout()">&times;</span>
+      <h2><i class="fa-solid fa-shield-halved"></i> Transaksi Instan</h2>
+      <div class="checkout-summary">
+        <p>Film: <strong id="modalMovieTitle">-</strong></p>
+        <p>Tipe Akses: <strong id="modalAccessType">-</strong></p>
+        <p>Total Bayar: <strong id="modalPrice" class="neon-text">Rp 0</strong></p>
+      </div>
+      
+      <h3>Pilih Metode Pembayaran</h3>
+      <div class="payment-options">
+        <label class="payment-item">
+          <input type="radio" name="payment" checked>
+          <span><i class="fa-solid fa-qrcode"></i> QRIS (All E-Wallet / Bank)</span>
+        </label>
+        <label class="payment-item">
+          <input type="radio" name="payment">
+          <span><i class="fa-solid fa-wallet"></i> GoPay / OVO / ShopeePay</span>
+        </label>
+        <label class="payment-item">
+          <input type="radio" name="payment">
+          <span><i class="fa-solid fa-building-columns"></i> Transfer Bank (BCA, Mandiri, BRI)</span>
+        </label>
+      </div>
+
+      <button class="btn btn-primary btn-full" onclick="processPayment()">Konfirmasi & Bayar Sekarang</button>
+    </div>
+  </div>
+
+  <!-- Modal Ulasan Bintang -->
+  <div id="reviewModal" class="review-modal">
+    <div class="review-modal-content">
+      <span class="close-modal" onclick="closeReviewModal()">&times;</span>
+      <h3 id="reviewMovieTitle">Beri Ulasan Film</h3>
+      
+      <div class="interactive-stars" id="starInput">
+        <i class="fa-regular fa-star" data-rating="1"></i>
+        <i class="fa-regular fa-star" data-rating="2"></i>
+        <i class="fa-regular fa-star" data-rating="3"></i>
+        <i class="fa-regular fa-star" data-rating="4"></i>
+        <i class="fa-regular fa-star" data-rating="5"></i>
+      </div>
+
+      <textarea id="reviewComment" placeholder="Tulis pendapatmu tentang film ini..."></textarea>
+      <button class="btn-submit-review" onclick="submitReview()">Kirim Ulasan</button>
+    </div>
+  </div>
+
+  <!-- Modal Pratinjau Trailer -->
+  <div id="trailerModal" class="modal">
+    <div class="modal-content trailer-modal-content">
+      <span class="close-btn" onclick="closeTrailerModal()">&times;</span>
+      <h3 id="trailerTitle" style="margin-bottom: 15px;">Trailer Film</h3>
+      <div style="position: relative; padding-bottom: 56.25%; height: 0; background:#000; border-radius:8px; overflow:hidden;">
+        <iframe id="trailerIframe" src="" style="position: absolute; top:0; left:0; width:100%; height:100%; border:0;" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Daftar Saya (Watchlist) -->
+  <div id="watchlistModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeWatchlistModal()">&times;</span>
+      <h2><i class="fa-solid fa-heart" style="color:var(--secondary)"></i> Daftar Saya</h2>
+      <div id="watchlistContainer" class="library-list">
+        <!-- Item watchlist dinamis -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Koleksi Saya (My Library) -->
+  <div id="libraryModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeLibraryModal()">&times;</span>
+      <h2><i class="fa-solid fa-box-archive"></i> Koleksi Film Saya</h2>
+      <div id="libraryContainer" class="library-list">
+        <!-- Item koleksi dinamis -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <footer>
+    <p>&copy; 2026 RYZAFILMS. All Rights Reserved.</p>
+  </footer>
+
+  <script src="main.js"></script>
+  <!-- Fitur Musik Latar / Background Music Player -->
+<!-- Audio Latar Tersembunyi (Hidden Background Music) -->
+<audio id="bgm" autoplay loop preload="auto">
+    <source src="assets/audio/terminal-ascent.mp3" type="audio/mpeg">
+    Browser kamu tidak mendukung pemutar audio.
+</audio>
+</body>
+</html>
